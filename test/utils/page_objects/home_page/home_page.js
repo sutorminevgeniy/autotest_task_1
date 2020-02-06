@@ -15,15 +15,6 @@ class HomePage extends BasePage {
     return element(by.css(".image>a[href='/region-selector']")).click();
   }
 
-  clickRussionRegion() {
-    browser.wait(
-      ExpectedConditions.presenceOf(
-        element(by.css("a.storeLanguageSelectorHref[href='/ru-ru']"))),
-      5000);
-
-    return element(by.css("a.storeLanguageSelectorHref[href='/ru-ru']")).click();
-  }
-
   async getHomePageUrl() {
     browser.wait(
       ExpectedConditions.or(

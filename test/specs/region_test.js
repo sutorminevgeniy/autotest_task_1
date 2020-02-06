@@ -1,4 +1,3 @@
-// spec.js
 const expect = require("chai").expect;
 
 const PageFactory = require("../utils/page_objects/pageFactory");
