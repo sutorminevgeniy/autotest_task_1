@@ -13,14 +13,18 @@ describe('Region changing shop.westerndigital.com', function () {
     homePage = PageFactory.getPage("Home");
 
     homePage.open();
-    
+
     homePage.navigate.hoverButtonShop();
     await homePage.navigate.clickButtonAllProducts();
 
     productsPage = PageFactory.getPage("Products");
-    await productsPage.waitProducts()
+    await productsPage.waitProducts();
 
-    browser.sleep(4000);
+    await productsPage.chooseSortBy();
+    await productsPage.waitProducts();
+    await productsPage.getPrices();
+
+    await browser.sleep(5000);
   });
 
 
