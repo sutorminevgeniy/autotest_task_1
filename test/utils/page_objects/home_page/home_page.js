@@ -5,6 +5,7 @@ class HomePage extends BasePage {
     super();
 
     this.url = "https://shop.westerndigital.com";
+    this.html = element(by.tagName('html'));
   }
 
   open() {
@@ -25,8 +26,20 @@ class HomePage extends BasePage {
     return browser.getCurrentUrl();
   };
 
+  async waitPage() {
+    browser.wait(
+      ExpectedConditions.or(
+        ExpectedConditions.urlIs('https://shop.westerndigital.com/ru-ru'),
+        ExpectedConditions.urlIs('https://shop.westerndigital.com')),
+      5000);
+
+    browser.wait(
+      ExpectedConditions.presenceOf(this.html),
+      5000);
+  };
+
   async getHtmlLang() {
-    return element(by.tagName('html')).getAttribute('lang');
+    return this.html.getAttribute('lang');
   };
 };
 

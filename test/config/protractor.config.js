@@ -2,7 +2,6 @@
 exports.config = {
   directConnection: true,
 
-  // framework: 'jasmine',
   framework: 'mocha',
 
   baseUrl: 'localhost',

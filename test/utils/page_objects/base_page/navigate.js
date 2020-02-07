@@ -8,8 +8,8 @@ class Navigate {
     browser.actions().mouseMove(this.buttonShop).perform();
   }
 
-  clickButtonAllProducts() {
-    this.buttonAllProducts.click();
+  async clickButtonAllProducts() {
+    return this.buttonAllProducts.click();
   }
 }
 

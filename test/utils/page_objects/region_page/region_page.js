@@ -5,19 +5,22 @@ class RegionPage extends BasePage {
     super();
 
     this.url = "https://shop.westerndigital.com/region-selector";
+    
+    this.buttonRu = element(by.css("a.storeLanguageSelectorHref[href='/ru-ru']"));
   }
 
   open() {
     return super.open(this.url);
   }
 
-  clickRussionRegion() {
+  async clickRussionRegion() {
     browser.wait(
-      ExpectedConditions.presenceOf(
-        element(by.css("a.storeLanguageSelectorHref[href='/ru-ru']"))),
+      ExpectedConditions.presenceOf(this.buttonRu),
       5000);
 
-    return element(by.css("a.storeLanguageSelectorHref[href='/ru-ru']")).click();
+    browser.executeScript("arguments[0].scrollIntoView();", this.buttonRu);
+
+    return this.buttonRu.click();
   }
 };
 

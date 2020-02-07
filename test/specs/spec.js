@@ -4,10 +4,10 @@ const expect = require("chai").expect;
 const PageFactory = require("../utils/page_objects/pageFactory");
 
 describe('Region changing shop.westerndigital.com', function () {
-  let homePage, regionPage;
+  let homePage, productsPage;
 
-  before(function () {
-    // browser.ignoreSynchronization = true;
+  before(async function () {
+    browser.ignoreSynchronization = true;
     browser.manage().window().maximize();
 
     homePage = PageFactory.getPage("Home");
@@ -15,7 +15,12 @@ describe('Region changing shop.westerndigital.com', function () {
     homePage.open();
     
     homePage.navigate.hoverButtonShop();
-    homePage.navigate.clickButtonAllProducts();
+    await homePage.navigate.clickButtonAllProducts();
+
+    productsPage = PageFactory.getPage("Products");
+    await productsPage.waitProducts()
+
+    browser.sleep(4000);
   });
 
 
@@ -25,7 +30,6 @@ describe('Region changing shop.westerndigital.com', function () {
 
 
   after(function () {
-    browser.sleep(4000);
-    browser.close();
+    // browser.close();
   });
 });
