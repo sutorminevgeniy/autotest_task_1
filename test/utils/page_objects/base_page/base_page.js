@@ -1,5 +1,9 @@
+const Navigate = require('./navigate');
+
 class BasePage {
-  // constructor() { }
+  constructor() {
+    this.navigate = new Navigate();
+  }
 
   async getCurrenUrl() {
     const currentUrl = await browser.getCurrentUrl();

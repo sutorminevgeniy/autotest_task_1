@@ -1,6 +1,6 @@
 // conf.js
 exports.config = {
-  // directConnection: true,
+  directConnection: true,
 
   // framework: 'jasmine',
   framework: 'mocha',
