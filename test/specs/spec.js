@@ -5,6 +5,7 @@ const PageFactory = require("../utils/page_objects/pageFactory");
 
 describe('Region changing shop.westerndigital.com', function () {
   let homePage, productsPage;
+  let resultPrice, sortedPrice;
 
   before(async function () {
     browser.ignoreSynchronization = true;
@@ -22,11 +23,30 @@ describe('Region changing shop.westerndigital.com', function () {
 
     await productsPage.chooseSortBy();
     await productsPage.waitProducts();
-    await productsPage.getPrices();
+    resultPrice = await productsPage.getPrices();
+    console.log(resultPrice);
 
-    await browser.sleep(5000);
+    sortedPrice = resultPrice.sort((a, b) => {
+      if (a.price < b.price) {
+        return -1;
+      }
+      if (a.price > b.price) {
+        return 1;
+      }
+      return 0;
+    })
+
+    // await browser.sleep(5000);
   });
 
+
+  it('Verifying sort dy price', async function () {
+    expect(resultPrice).to.equal(sortedPrice);
+  });
+  
+  it('Verifying ordered dy price', async function () {
+    expect(resultPrice).to.have.ordered.members(sortedPrice);
+  });
 
   it('Verifying URI', async function () {
     expect(1).to.equal(1);

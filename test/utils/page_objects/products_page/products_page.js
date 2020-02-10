@@ -8,7 +8,7 @@ class ProductsPage extends BasePage {
 
     this.url = "https://shop.westerndigital.com/c/all-products";
 
-    this.allProducts = element.all(by.css('.ng-scope[ng-repeat^="products in productJSON"] p'));
+    this.allProducts = element.all(by.css('.ng-scope[ng-repeat^="products in productJSON"] div[ng-if^="productPricesInfo"] p'));
     this.lastProducts = element(by.css('.ng-scope[ng-repeat^="products in productJSON"]:last-child'));
 
     this.selectSortBy = element(by.model('sortBy'));
@@ -26,7 +26,7 @@ class ProductsPage extends BasePage {
 
     return browser.wait(
       ExpectedConditions.presenceOf(this.lastProducts),
-      10000);
+      20000);
   }
 
   async chooseSortBy() {
@@ -37,13 +37,14 @@ class ProductsPage extends BasePage {
 
   async getPrices() {
     let prices = await this.allProducts.map(async function(elm, index) {
-      return {
-        index: index,
-        text: await elm.getText()
-      };
+      let price = await elm.getText();
+
+      price = Number.parseFloat(price.slice(1));
+
+      return { index, price };
     });
 
-    console.log(prices);
+    return prices;
   }
 
 };
