@@ -1,8 +1,10 @@
 const Navigate = require('./navigate');
+const Search = require('./search');
 
 class BasePage {
   constructor() {
     this.navigate = new Navigate();
+    this.search = new Search();
   }
 
   async getCurrenUrl() {

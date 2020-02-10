@@ -4,8 +4,8 @@ const expect = require("chai").expect;
 const PageFactory = require("../utils/page_objects/pageFactory");
 
 describe('Region changing shop.westerndigital.com', function () {
-  let homePage, productsPage;
-  let resultPrice, sortedPrice;
+  let homePage, searchPage;
+  let countResultsSearch, countSlidesSearch;
 
   before(async function () {
     browser.ignoreSynchronization = true;
@@ -15,42 +15,24 @@ describe('Region changing shop.westerndigital.com', function () {
 
     homePage.open();
 
-    homePage.navigate.hoverButtonShop();
-    await homePage.navigate.clickButtonAllProducts();
+    await homePage.search.clickFormSearch();
+    await homePage.search.sendFormSearch('WINDBREAKER');
 
-    productsPage = PageFactory.getPage("Products");
-    await productsPage.waitProducts();
+    searchPage =  PageFactory.getPage("Search");
+    await searchPage.waitProducts();
+    countResultsSearch = await searchPage.getCountResults();
+    countSlidesSearch = await searchPage.getCountSlides();
+    console.log(countResultsSearch, countSlidesSearch);
 
-    await productsPage.chooseSortBy();
-    await productsPage.waitProducts();
-    resultPrice = await productsPage.getPrices();
-    
-    console.log(resultPrice);
-
-    sortedPrice = resultPrice.sort((a, b) => {
-      if (a.price < b.price) {
-        return -1;
-      }
-      if (a.price > b.price) {
-        return 1;
-      }
-      return 0;
-    })
-
-    // await browser.sleep(5000);
+    // await browser.sleep(10000);
   });
 
-
-  it('Verifying sort dy price', async function () {
-    expect(resultPrice).to.equal(sortedPrice);
-  });
-  
-  it('Verifying ordered dy price', async function () {
-    expect(resultPrice).to.have.ordered.members(sortedPrice);
+  it('Verifying count result search', async function () {
+    expect(countResultsSearch).to.equal(3);
   });
 
-  it('Verifying URI', async function () {
-    expect(1).to.equal(1);
+  it('Verifying count slides search', async function () {
+    expect(countSlidesSearch).to.equal(2);
   });
 
 
