@@ -3,7 +3,7 @@ const expect = require("chai").expect;
 
 const PageFactory = require("../utils/page_objects/pageFactory");
 
-describe('Region changing shop.westerndigital.com', function () {
+describe.skip('Sorting products shop.westerndigital.com', function () {
   let homePage, productsPage;
   let resultPrice, sortedPrice;
 
@@ -24,8 +24,6 @@ describe('Region changing shop.westerndigital.com', function () {
     await productsPage.chooseSortBy();
     await productsPage.waitProducts();
     resultPrice = await productsPage.getPrices();
-    
-    console.log(resultPrice);
 
     sortedPrice = resultPrice.sort((a, b) => {
       if (a.price < b.price) {
@@ -48,11 +46,6 @@ describe('Region changing shop.westerndigital.com', function () {
   it('Verifying ordered dy price', async function () {
     expect(resultPrice).to.have.ordered.members(sortedPrice);
   });
-
-  it('Verifying URI', async function () {
-    expect(1).to.equal(1);
-  });
-
 
   after(function () {
     // browser.close();
