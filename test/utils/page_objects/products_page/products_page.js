@@ -20,7 +20,7 @@ class ProductsPage extends BasePage {
   }
 
   async waitProducts() {
-    browser.wait(
+    await browser.wait(
       ExpectedConditions.urlIs(this.url),
       5000);
 
